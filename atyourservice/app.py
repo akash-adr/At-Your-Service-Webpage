@@ -11,12 +11,18 @@ CORS(app)  # Allow requests from the local HTML file / dev server
 # ── SMTP Configuration ────────────────────────────────────────────────────────
 SMTP_HOST   = "webmail.atyourservice.ind.in"
 SMTP_PORT   = 465
-SENDER      = "leads@atyourservice.ind.in"
+SMTP_USER   = "leads@atyourservice.ind.in"
+SENDER      = SMTP_USER
 RECEIVER    = "info@atyourservice.ind.in"
+
 
 # Set SMTP_PASSWORD as an environment variable before running:
 #   export SMTP_PASSWORD="your_email_password"
 SMTP_PASS   = os.environ.get("SMTP_PASSWORD", "")
+
+if not SMTP_PASS:
+    app.logger.warning("SMTP_PASSWORD is not set. Email sending will fail.")
+
 
 
 @app.route("/")
@@ -59,8 +65,9 @@ def send_email():
     try:
         context = ssl._create_unverified_context()
         with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, context=context) as server:
-            server.login(SENDER, SMTP_PASS)
+            server.login(SMTP_USER, SMTP_PASS)
             server.send_message(msg)
+
 
         return jsonify({"success": True}), 200
 

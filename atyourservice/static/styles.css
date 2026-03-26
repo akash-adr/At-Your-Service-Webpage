@@ -278,6 +278,74 @@ section {
     color: var(--primary);
 }
 
+/* Hamburger Button */
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-dark);
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 101;
+    transition: var(--transition);
+}
+
+.hamburger-btn:hover {
+    color: var(--primary);
+}
+
+/* Mobile Menu Dropdown */
+.mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem 0;
+    box-shadow: var(--shadow-lg);
+    display: none; /* Hidden by default */
+    z-index: 99;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-menu.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.mobile-nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 2rem;
+}
+
+.mobile-nav-links a {
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    border-radius: var(--radius-sm);
+}
+
+.mobile-nav-links a:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.mobile-cta {
+    margin-top: 0.5rem;
+    width: 100% !important;
+}
+
+
 /* 3. HERO SECTION */
 .hero {
     padding: 5rem 0 8rem 0;
@@ -934,22 +1002,33 @@ section {
 .delay-3 { transition-delay: 0.3s; }
 
 /* Responsive adjustments */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
+    .nav-links, .nav-cta {
+        display: none !important;
+    }
+    
+    .hamburger-btn {
+        display: block;
+    }
+
     .hero-container, .about-container, .process-container, .contact-container {
         grid-template-columns: 1fr;
     }
+    
+    .hero-visual {
+        order: -1;
+    }
+
     .footer-container {
         grid-template-columns: 1fr 1fr;
     }
+    
     .trust-container {
         justify-content: center;
     }
 }
 
 @media (max-width: 768px) {
-    .nav-links, .nav-cta {
-        display: none; /* Add a mobile menu in real implementation */
-    }
     .grid-6 {
         grid-template-columns: 1fr;
     }
@@ -965,4 +1044,13 @@ section {
         gap: 1rem;
         text-align: center;
     }
+    
+    .nav-logo-img {
+        height: 60px;
+    }
+    
+    .brand-logo {
+        font-size: 1.25rem;
+    }
 }
+
