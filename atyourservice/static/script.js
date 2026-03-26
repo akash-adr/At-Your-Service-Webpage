@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formMessages.className = 'form-messages';
 
             try {
-                const response = await fetch('http://127.0.0.1:5000/send-email', {
+                const response = await fetch('/send-email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
